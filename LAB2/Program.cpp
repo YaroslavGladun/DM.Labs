@@ -123,13 +123,13 @@ int main()
 
 	cout << "ћножина 1 (потужнiсть " << mass1.GetPower() << "): ";
 	mass1.PrintArray();
-	cout << "\nћножина 2 (потужнiсть " << mass2.GetPower() << "): ";;
+	cout << "\nћножина 2 (потужнiсть " << mass2.GetPower() << "): ";
 	mass2.PrintArray();
-	cout << "\nѕеретен множин (потужнiсть " << resSel.GetPower() << "): ";;
+	cout << "\nѕеретен множин (потужнiсть " << resSel.GetPower() << "): ";
 	resSel.PrintArray();
-	cout << "\nќбЇднанн€ множин (потужнiсть " << resUn.GetPower() << "): ";;
+	cout << "\nќбЇднанн€ множин (потужнiсть " << resUn.GetPower() << "): ";
 	resUn.PrintArray();
-	cout << "\n—иметрична рiзниц€ множин (потужнiсть " << resDiv.GetPower() << "): ";;
+	cout << "\n—иметрична рiзниц€ множин (потужнiсть " << resDiv.GetPower() << "): ";
 	resDiv.PrintArray();
 
 	cout << endl;
