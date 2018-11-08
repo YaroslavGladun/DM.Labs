@@ -40,7 +40,8 @@ namespace logoblib
                 matrix[matrix.Count - 1].Add(0);
             }
         }
-
+        
+        // REVIEW
         public void DeleteTop(char name)
         {
             int i = findTopInGraph(name), j;
@@ -67,9 +68,16 @@ namespace logoblib
             matrix[i][j] = matrix[j][i] = valuePrice;
         }
 
-        public void DeleteRig(char top_name)
+        public void DeleteRig(char top_start_name, char top_end_name)
         {
+            int i = findRibInGraph(top_start_name, top_end_name), j;
+            if (i == -1)
+                return;
 
+            ribs.RemoveAt(i);
+
+            int q, p;
+            matrix[q = findTopInGraph(top_start_name)][p = findTopInGraph(top_end_name)] = matrix[p][q] = 0;
         }
 
         public void writeMatrix()
@@ -107,6 +115,14 @@ namespace logoblib
             return -1;
         }
 
+        private int findRibInGraph(char start_name_top, char end_name_top)
+        {
+            for (int i = 0; i < ribs.Count; i++)
+                if ((ribs[i].StartTop.Name == start_name_top && ribs[i].EndTop.Name == end_name_top)
+                    || (ribs[i].StartTop.Name == end_name_top && ribs[i].EndTop.Name == start_name_top))
+                    return i;
+            return -1;
+        }
         private List<int> findRibInGraph(char name_top)
         {
             List<int> indexes = new List<int>();
