@@ -8,13 +8,13 @@ namespace logoblib
 {
     class Top
     {
-        private string name;
+        private char name;
 
-        public Top(string name)
+        public Top(char name)
         {
             this.name = name;
         }
 
-        public string Name { get => name; set => name = value; }
+        public char Name { get => name; set => name = value; }
     }
 }

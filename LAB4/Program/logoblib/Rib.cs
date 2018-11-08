@@ -10,12 +10,23 @@ namespace logoblib
     {
         private Top startTop;
         private Top endTop;
+        private int valuePrice;
 
-        public Rib(ref Top startTop, ref Top endTop)
+        public Rib(Top startTop, Top endTop)
         {
-            this.startTop = startTop;
-            this.endTop = endTop;
+            this.StartTop = startTop;
+            this.EndTop = endTop;
         }
 
+        public Rib(Top startTop, Top endTop, int valuePrice)
+        {
+            this.StartTop = startTop;
+            this.EndTop = endTop;
+            this.valuePrice = valuePrice;
+        }
+
+        public Top StartTop { get => startTop; set => startTop = value; }
+        public Top EndTop { get => endTop; set => endTop = value; }
+        public int ValuePrice { get => valuePrice; set => valuePrice = value; }
     }
 }

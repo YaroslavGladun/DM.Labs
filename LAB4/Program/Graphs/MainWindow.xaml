@@ -7,6 +7,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Ellipse Fill="Blue" HorizontalAlignment="Left" Height="100" Margin="332,165,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
     </Grid>
 </Window>
