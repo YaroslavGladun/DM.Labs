@@ -20,6 +20,7 @@ namespace GraphsConsole
             graph.DeleteRig('A', 'B');
             graph.writeMatrix();
             graph.DeleteTop('A');
+            graph.DeleteRig('B', 'B');
             graph.writeMatrix();
         }
     }

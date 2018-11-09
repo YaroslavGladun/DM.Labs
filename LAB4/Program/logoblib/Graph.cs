@@ -48,10 +48,15 @@ namespace logoblib
             if (i == -1)
                 return;
 
+            List<int> listRigsIndexes = findRibInGraph(name);
+
+            for (j = 0; j < listRigsIndexes.Count; j++)
+                DeleteRig(listRigsIndexes[j]);
+
             tops.RemoveAt(i);
             matrix.RemoveAt(i);
             for (j = 0; j < matrix.Count; j++)
-                matrix[i].RemoveAt(i);
+                matrix[j].RemoveAt(i);
         }
 
         public void AddRib(char start_top_name, char end_top_name, int valuePrice)
@@ -80,6 +85,16 @@ namespace logoblib
             matrix[q = findTopInGraph(top_start_name)][p = findTopInGraph(top_end_name)] = matrix[p][q] = 0;
         }
 
+        public void DeleteRig(int index)
+        {
+            if (index >= ribs.Count || index < 0)
+                    return;
+
+            int q, p;
+            matrix[q = findTopInGraph(ribs[index].StartTop.Name)][p = findTopInGraph(ribs[index].EndTop.Name)] = matrix[p][q] = 0;
+            ribs.RemoveAt(index);
+        }
+
         public void writeMatrix()
         {
             int i, j;
@@ -99,14 +114,13 @@ namespace logoblib
             }
         }
 
-        //// CRASKYL ALGORISM
-        //public Graph AlgorismCrascal()
-        //{
-        //
-        //}
+        // CRASKYL ALGORISM
+        public Graph AlgorithmKruskal()
+        {
+            
+        }
 
-        // PRIVATE:
-        // Return -1 if element not found
+        //PRIVATE:
         private int findTopInGraph(char name)
         {
             for (int i = 0; i < tops.Count; i++)
