@@ -117,7 +117,17 @@ namespace logoblib
         // CRASKYL ALGORISM
         public Graph AlgorithmKruskal()
         {
+            Graph resultGraph = new Graph();
+
+            for (int i = 0; i < this.tops.Count; i++)
+                resultGraph.AddTop(this.tops[i].Name);
             
+            // HERE --
+
+
+
+
+            return resultGraph;
         }
 
         //PRIVATE:

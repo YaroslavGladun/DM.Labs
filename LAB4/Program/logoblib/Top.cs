@@ -15,6 +15,16 @@ namespace logoblib
             this.name = name;
         }
 
+        public static bool operator == (Top top1, Top top2)
+        {
+            return top1.name == top2.name;
+        }
+
+        public static bool operator !=(Top top1, Top top2)
+        {
+            return top1.name != top2.name;
+        }
+
         public char Name { get => name; set => name = value; }
     }
 }

@@ -25,6 +25,43 @@ namespace logoblib
             this.valuePrice = valuePrice;
         }
 
+        public bool CheckDivisionTop(Rib rib)
+        {
+            return (startTop == rib.startTop || startTop == rib.endTop ||
+                endTop == rib.startTop || endTop == rib.endTop);
+        }
+
+
+        public static bool operator >(Rib rib1, Rib rib2)
+        {
+            return rib1.valuePrice > rib2.valuePrice;
+        }
+
+        public static bool operator <(Rib rib1, Rib rib2)
+        {
+            return rib1.valuePrice < rib2.valuePrice;
+        }
+
+        public static bool operator >=(Rib rib1, Rib rib2)
+        {
+            return rib1.valuePrice >= rib2.valuePrice;
+        }
+
+        public static bool operator <=(Rib rib1, Rib rib2)
+        {
+            return rib1.valuePrice <= rib2.valuePrice;
+        }
+
+        public static bool operator !=(Rib rib1, Rib rib2)
+        {
+            return rib1.valuePrice != rib2.valuePrice;
+        }
+
+        public static bool operator ==(Rib rib1, Rib rib2)
+        {
+            return rib1.valuePrice == rib2.valuePrice;
+        }
+
         public Top StartTop { get => startTop; set => startTop = value; }
         public Top EndTop { get => endTop; set => endTop = value; }
         public int ValuePrice { get => valuePrice; set => valuePrice = value; }
