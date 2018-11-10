@@ -118,12 +118,25 @@ namespace logoblib
         public Graph AlgorithmKruskal()
         {
             Graph resultGraph = new Graph();
+            List<Rib> sortRibs = new List<Rib>();
+
+            for (int i = 0; i < this.ribs.Count; i++)
+                sortRibs.Add(this.ribs[i]);
+            sortRibs.Sort((a, b) => a.ValuePrice.CompareTo(b.ValuePrice));
 
             for (int i = 0; i < this.tops.Count; i++)
                 resultGraph.AddTop(this.tops[i].Name);
 
-            // HERE --
 
+            //for (int i = 0; i < sortRibs.Count; i++)
+            //    Console.WriteLine("{0} ", sortRibs[i].ValuePrice);
+
+            for (int i = 0; i < sortRibs.Count; i++)
+            {
+                resultGraph.AddRib(sortRibs[i].StartTop.Name, sortRibs[i].EndTop.Name,
+                    sortRibs[i].ValuePrice); // !!!!!!!!
+                if (resultGraph.loopCheck()) resultGraph.DeleteRig(i);
+            }
 
 
 

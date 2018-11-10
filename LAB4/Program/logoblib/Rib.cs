@@ -69,5 +69,7 @@ namespace logoblib
         public Top StartTop { get => startTop; set => startTop = value; }
         public Top EndTop { get => endTop; set => endTop = value; }
         public int ValuePrice { get => valuePrice; set => valuePrice = value; }
+
+        
     }
 }

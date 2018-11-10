@@ -15,13 +15,9 @@ namespace GraphsConsole
             graph.AddRib('A', 'B', 10);
             graph.AddRib('A', 'C', 15);
             graph.AddRib('B', 'B', 33);
-            graph.AddRib('B', 'C', 111);
+            graph.AddRib('B', 'C', 1);
             graph.writeMatrix();
-            graph.DeleteRig('A', 'B');
-            graph.writeMatrix();
-            graph.DeleteTop('A');
-            graph.DeleteRig('B', 'B');
-            graph.writeMatrix();
+            graph.AlgorithmKruskal().writeMatrix();
         }
     }
 }
