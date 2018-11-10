@@ -25,13 +25,7 @@ namespace logoblib
             this.valuePrice = valuePrice;
         }
 
-        public bool CheckDivisionTop(Rib rib)
-        {
-            return (startTop == rib.startTop || startTop == rib.endTop ||
-                endTop == rib.startTop || endTop == rib.endTop);
-        }
-
-
+        //REWIEW
         public static bool operator >(Rib rib1, Rib rib2)
         {
             return rib1.valuePrice > rib2.valuePrice;
@@ -60,6 +54,16 @@ namespace logoblib
         public static bool operator ==(Rib rib1, Rib rib2)
         {
             return rib1.valuePrice == rib2.valuePrice;
+        }
+        //__|
+
+
+        public bool checkJointTops(Rib rib2)
+        {
+            return (this.startTop == rib2.startTop && this.endTop != rib2.endTop) ||
+                (this.endTop == rib2.endTop && this.startTop != rib2.startTop) ||
+                (this.endTop == rib2.startTop && this.startTop == rib2.endTop) ||
+                (this.startTop == rib2.endTop && this.endTop == rib2.startTop);
         }
 
         public Top StartTop { get => startTop; set => startTop = value; }

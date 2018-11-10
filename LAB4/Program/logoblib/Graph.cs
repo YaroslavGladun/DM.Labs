@@ -40,7 +40,7 @@ namespace logoblib
                 matrix[matrix.Count - 1].Add(0);
             }
         }
-        
+
         // REVIEW
         public void DeleteTop(char name)
         {
@@ -88,7 +88,7 @@ namespace logoblib
         public void DeleteRig(int index)
         {
             if (index >= ribs.Count || index < 0)
-                    return;
+                return;
 
             int q, p;
             matrix[q = findTopInGraph(ribs[index].StartTop.Name)][p = findTopInGraph(ribs[index].EndTop.Name)] = matrix[p][q] = 0;
@@ -121,7 +121,7 @@ namespace logoblib
 
             for (int i = 0; i < this.tops.Count; i++)
                 resultGraph.AddTop(this.tops[i].Name);
-            
+
             // HERE --
 
 
@@ -156,6 +156,28 @@ namespace logoblib
                     indexes.Add(i);
 
             return indexes;
+        }
+
+        private bool loopCheck()
+        {
+            int i, j, k;
+
+            for (i = 0; i < this.ribs.Count; i++)
+            {
+                for (j = 0; j < this.ribs.Count; j++)
+                {
+                    if (i == j)
+                        continue;
+                    for (k = 0; k < this.ribs.Count; k++)
+                    {
+                        if (k == j || k == i)
+                            continue;
+                        if (ribs[i].checkJointTops(ribs[j]) && ribs[i].checkJointTops(ribs[k]))
+                            return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }
