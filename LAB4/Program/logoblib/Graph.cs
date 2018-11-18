@@ -127,15 +127,24 @@ namespace logoblib
             for (int i = 0; i < this.tops.Count; i++)
                 resultGraph.AddTop(this.tops[i].Name);
 
-
-            //for (int i = 0; i < sortRibs.Count; i++)
-            //    Console.WriteLine("{0} ", sortRibs[i].ValuePrice);
+            ///
+            for (int i = 0; i < sortRibs.Count; i++)
+                Console.WriteLine("{0} ", sortRibs[i].ValuePrice);
+            ///
 
             for (int i = 0; i < sortRibs.Count; i++)
             {
                 resultGraph.AddRib(sortRibs[i].StartTop.Name, sortRibs[i].EndTop.Name,
-                    sortRibs[i].ValuePrice); // !!!!!!!!
-                if (resultGraph.loopCheck()) resultGraph.DeleteRig(i);
+                    sortRibs[i].ValuePrice);
+
+                if (resultGraph.loopCheck())
+                    resultGraph.DeleteRig(sortRibs[i].StartTop.Name, sortRibs[i].EndTop.Name);
+
+                //__
+                Console.WriteLine();
+                resultGraph.writeMatrix();
+                Console.WriteLine();
+                //__
             }
 
 
@@ -173,24 +182,49 @@ namespace logoblib
 
         private bool loopCheck()
         {
-            int i, j, k;
+            if (this.tops.Count < 3) return false;
+            Graph temp = new Graph();
 
-            for (i = 0; i < this.ribs.Count; i++)
+            // ---Сначала добавляем вершины
+
+            for (int i = 0; i < this.ribs.Count; i++)
             {
-                for (j = 0; j < this.ribs.Count; j++)
-                {
-                    if (i == j)
-                        continue;
-                    for (k = 0; k < this.ribs.Count; k++)
-                    {
-                        if (k == j || k == i)
-                            continue;
-                        if (ribs[i].checkJointTops(ribs[j]) && ribs[i].checkJointTops(ribs[k]))
-                            return true;
-                    }
-                }
+                temp.AddRib(this.ribs[i].StartTop.Name, this.ribs[i].EndTop.Name, this.ribs[i].ValuePrice);
             }
-            return false;
+
+            for (int key = temp.tops.Count; ;)
+            {
+
+                for (int i = 0; i < temp.tops.Count; i++)
+                {
+                    if (temp.dearchDegree(temp.tops[i].Name) < 2)
+                        temp.DeleteTop(temp.tops[i].Name);
+                }
+
+                if (temp.tops.Count == 0)
+                    return false;
+                if (key == temp.tops.Count)
+                    return true;
+                else
+                    key = temp.tops.Count;
+            }
+
+            return temp.ribs.Count != 0;
+        }
+
+        private int dearchDegree(char top_name)
+        {
+            int result = 0;
+
+            for (int i = 0; i < this.ribs.Count; i++)
+            {
+                if (this.ribs[i].StartTop.Name == top_name)
+                        result++;
+                if (this.ribs[i].EndTop.Name == top_name)
+                    result++;
+            }
+
+            return result;
         }
     }
 }

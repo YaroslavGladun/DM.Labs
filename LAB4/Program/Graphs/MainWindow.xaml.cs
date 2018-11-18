@@ -23,6 +23,19 @@ namespace Graphs
         public MainWindow()
         {
             InitializeComponent();
+            //Ellipse ellipse = new Ellipse();
+            //SolidColorBrush solid = new SolidColorBrush();
+            //solid.Color = Color.FromArgb(255, 255, 255, 0);
+            //ellipse.Width = ellipse.Height = 100;
+            //
+            //
+            //ellipse.Fill = solid;
+
+
+            GraphicTop A = new GraphicTop();
+
+
+            Grid.Children.Add(A.Rectangle);
         }
     }
 }
