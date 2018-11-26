@@ -22,10 +22,10 @@ namespace GraphsConsole
             bool key = true;
             do
             {
-                Console.WriteLine("0. Вихід.");
+                Console.WriteLine("0. Вихiд.");
                 Console.WriteLine("1. Приклад.");
                 Console.WriteLine("2. Запуск");
-                Console.WriteLine("Оберіть пункт меню та натисніть Enter: ");
+                Console.Write("Оберiть пункт меню та натиснiть Enter: ");
                 switch (Console.ReadLine())
                 {
                     case "0":
@@ -42,7 +42,7 @@ namespace GraphsConsole
                         break;
                     default:
                         Console.Clear();
-                        Console.WriteLine("Ви вибрали не існуючий пункт меню.");
+                        Console.WriteLine("Ви вибрали не iснуючий пункт меню.");
                         break;
                 }
             } while (key);
@@ -81,15 +81,58 @@ namespace GraphsConsole
             graph.AddRib('9', 'B', 1);
             graph.AddRib('A', 'B', 6);
 
+            //graph.AddRib('1', '2', 1);
+            //graph.AddRib('1', '3', 3);
+            //graph.AddRib('1', '4', 4);
+            //graph.AddRib('2', '5', 2);
+            //graph.AddRib('2', '7', 6);
+            //graph.AddRib('3', '5', 7);
+            //graph.AddRib('3', '6', 1);
+            //graph.AddRib('4', '6', 7);
+            //graph.AddRib('4', '7', 2);
+            //graph.AddRib('5', '8', 7);
+            //graph.AddRib('5', '9', 3);
+            //graph.AddRib('6', '8', 3);
+            //graph.AddRib('6', 'A', 1);
+            //graph.AddRib('7', '9', 4);
+            //graph.AddRib('7', 'A', 1);
+            //graph.AddRib('8', 'B', 2);
+            //graph.AddRib('9', 'B', 4);
+            //graph.AddRib('A', 'B', 5);
+
+
+
             graph.writeMatrix();
-            Console.WriteLine();
             graph.AlgorithmKruskal().writeMatrix();
         }
 
         static void StartProgram()
         {
+            Graph graph = new Graph();
+            int key;
 
-
+            do
+            {
+                Console.WriteLine("0. Знайти мінімальне дерево.");
+                Console.WriteLine("1. Додати вершину.");
+                Console.WriteLine("2. Додати ребро.");
+                Console.Write("Оберiть пункт меню та натиснiть Enter: ");
+                switch (Console.ReadLine())
+                {
+                    case "0":
+                        graph.AlgorithmKruskal();
+                        return;
+                    case "1":
+                        Console.Write("Введіть імя вершини (один символ.): ");
+                        graph.AddTop((char) Console.Read());
+                        break;
+                    case "2":
+                        break;
+                    default:
+                        Console.WriteLine("Ви вибрали не iснуючий пункт меню.");
+                        break;
+                }
+            } while (true);
         }
     }
 }

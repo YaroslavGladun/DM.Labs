@@ -21,6 +21,63 @@ namespace logoblib
         }
 
         // PUBLIC:
+
+        public List<int> AlgorithmDijkstra(char name_start_top)
+        {
+            Top a = tops[this.findTopInGraph(name_start_top)];
+            int a_index = this.findTopInGraph(name_start_top);
+
+            List<Top> U = new List<Top>();
+            List<int> d = new List<int>(this.tops.Count);
+            List<int> p = new List<int>(this.tops.Count);
+            for (int i = 0; i < d.Capacity; i++)
+            {
+                d.Add(0);
+                p.Add(0);
+            }
+
+            d[a_index] = 0;
+            p[a_index] = 0;
+
+            for (int i = 0; i < tops.Count; i++)
+            {
+                if (i != a_index)
+                    d[i] = int.MaxValue;
+            }
+
+            while (U.Count != tops.Count)
+            {
+                Top temp_top_v = tops[0];
+                int temp_top_v_d = d[0];
+                for (int i = 0; i < tops.Count; i++)
+                {
+                    if (d[i] < d[temp_top_v_d] && U.FindIndex((x) => (x == tops[i])) == -1)
+                    {
+                        temp_top_v_d = d[i];
+                        temp_top_v = tops[i];
+                    }
+                }
+                U.Add(temp_top_v);
+
+                Top temp_top_u = tops[0];
+                for (int i = 0; i < tops.Count; i++)
+                {
+                    if (U.FindIndex((x) => (x == tops[i])) == -1 &&
+                        ribs.FindIndex((x) => (x == new Rib(temp_top_v, tops[i]))) != -1)
+                    {
+                        if (d[findTopInGraph(tops[i].Name)] >
+                            d[temp_top_v_d] + ribs[findRibInGraph(tops[i].Name, temp_top_v.Name)].ValuePrice)
+                        {
+                            d[findTopInGraph(tops[i].Name)] =
+                                d[temp_top_v_d] + ribs[findRibInGraph(tops[i].Name, temp_top_v.Name)].ValuePrice;
+                            //p[findTopInGraph(tops[i].Name)]
+                        }
+                    }
+                }
+            }
+            return d;
+        }
+
         public void AddTop(char name)
         {
             // Check top with eqivalenth name
@@ -102,19 +159,29 @@ namespace logoblib
             Console.Write('\t');
             for (i = 0; i < matrix.Count; i++)
             {
-                Console.Write("{0}\t", tops[i].Name);
+                Console.Write("|{0}\t", tops[i].Name);
             }
             Console.WriteLine();
             for (i = 0; i < matrix.Count; i++)
             {
-                Console.Write("{0}\t", tops[i].Name);
+                Console.Write("________");
+            }
+            Console.WriteLine();
+            for (i = 0; i < matrix.Count; i++)
+            {
+                Console.Write("{0}\t|", tops[i].Name);
                 for (j = 0; j < matrix[i].Count; j++)
                     Console.Write("{0}\t", matrix[i][j]);
                 Console.WriteLine();
             }
+            Console.WriteLine();
+            for (i = 0; i < matrix.Count; i++)
+            {
+                Console.Write("--------");
+            }
+            Console.WriteLine('\n');
         }
 
-        // CRASKYL ALGORISM
         public Graph AlgorithmKruskal()
         {
             Graph resultGraph = new Graph();
@@ -130,22 +197,25 @@ namespace logoblib
             for (int i = 0; i < sortRibs.Count; i++)
             {
                 resultGraph.AddRib(sortRibs[i].StartTop.Name, sortRibs[i].EndTop.Name,
-                    sortRibs[i].ValuePrice); // !!!!!!!!
-                if (resultGraph.loopCheck()) resultGraph.DeleteRig(i);
+                    sortRibs[i].ValuePrice);
+
+                if (resultGraph.loopCheck())
+                {
+                    resultGraph.DeleteRig(sortRibs[i].StartTop.Name, sortRibs[i].EndTop.Name);
+                }
+                else
+                {
+                    // <DEBUG>
+                    Console.WriteLine("ADD ({0} {1})", sortRibs[i].StartTop.Name, sortRibs[i].EndTop.Name);
+                    resultGraph.writeMatrix();
+                    //<DEBUG/>
+                }
+
             }
 
 
 
             return resultGraph;
-        }
-
-        public Graph AlgorithmDijkstra(char start_top_name, char end_top_name)
-        {
-            //Graph resultGraph = new Graph();
-            //this.findTopInGraph(start_top_name)
-
-
-
         }
 
         //PRIVATE:
@@ -178,24 +248,44 @@ namespace logoblib
 
         private bool loopCheck()
         {
-            int i, j, k;
+            if (this.tops.Count < 3) return false;
+            Graph temp = new Graph();
 
-            for (i = 0; i < this.ribs.Count; i++)
+            for (int i = 0; i < this.ribs.Count; i++)
             {
-                for (j = 0; j < this.ribs.Count; j++)
-                {
-                    if (i == j)
-                        continue;
-                    for (k = 0; k < this.ribs.Count; k++)
-                    {
-                        if (k == j || k == i)
-                            continue;
-                        if (ribs[i].checkJointTops(ribs[j]) && ribs[i].checkJointTops(ribs[k]))
-                            return true;
-                    }
-                }
+                temp.AddRib(this.ribs[i].StartTop.Name, this.ribs[i].EndTop.Name, this.ribs[i].ValuePrice);
             }
-            return false;
+
+            for (int key = temp.tops.Count; ;)
+            {
+
+                for (int i = 0; i < temp.tops.Count; i++)
+                {
+                    if (temp.dearchDegree(temp.tops[i].Name) < 2)
+                        temp.DeleteTop(temp.tops[i].Name);
+                }
+
+                if (temp.tops.Count == 0)
+                    return false;
+                if (key == temp.tops.Count)
+                    return true;
+                else
+                    key = temp.tops.Count;
+            }
+        }
+
+        private int dearchDegree(char top_name)
+        {
+            int result = 0;
+
+            for (int i = 0; i < this.ribs.Count; i++)
+            {
+                if (this.ribs[i].StartTop.Name == top_name)
+                    result++;
+                if (this.ribs[i].EndTop.Name == top_name)
+                    result++;
+            }
+            return result;
         }
     }
 }

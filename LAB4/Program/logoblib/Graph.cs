@@ -102,19 +102,29 @@ namespace logoblib
             Console.Write('\t');
             for (i = 0; i < matrix.Count; i++)
             {
-                Console.Write("{0}\t", tops[i].Name);
+                Console.Write("|{0}\t", tops[i].Name);
             }
             Console.WriteLine();
             for (i = 0; i < matrix.Count; i++)
             {
-                Console.Write("{0}\t", tops[i].Name);
+                Console.Write("________");
+            }
+            Console.WriteLine();
+            for (i = 0; i < matrix.Count; i++)
+            {
+                Console.Write("{0}\t|", tops[i].Name);
                 for (j = 0; j < matrix[i].Count; j++)
                     Console.Write("{0}\t", matrix[i][j]);
                 Console.WriteLine();
             }
+            Console.WriteLine();
+            for (i = 0; i < matrix.Count; i++)
+            {
+                Console.Write("--------");
+            }
+            Console.WriteLine('\n');
         }
 
-        // CRASKYL ALGORISM
         public Graph AlgorithmKruskal()
         {
             Graph resultGraph = new Graph();
@@ -127,24 +137,23 @@ namespace logoblib
             for (int i = 0; i < this.tops.Count; i++)
                 resultGraph.AddTop(this.tops[i].Name);
 
-            ///
-            for (int i = 0; i < sortRibs.Count; i++)
-                Console.WriteLine("{0} ", sortRibs[i].ValuePrice);
-            ///
-
             for (int i = 0; i < sortRibs.Count; i++)
             {
                 resultGraph.AddRib(sortRibs[i].StartTop.Name, sortRibs[i].EndTop.Name,
                     sortRibs[i].ValuePrice);
 
                 if (resultGraph.loopCheck())
+                {
                     resultGraph.DeleteRig(sortRibs[i].StartTop.Name, sortRibs[i].EndTop.Name);
+                }
+                else
+                {
+                    // <DEBUG>
+                    Console.WriteLine("ADD ({0} {1})", sortRibs[i].StartTop.Name, sortRibs[i].EndTop.Name);
+                    resultGraph.writeMatrix();
+                    //<DEBUG/>
+                }
 
-                //__
-                Console.WriteLine();
-                resultGraph.writeMatrix();
-                Console.WriteLine();
-                //__
             }
 
 
@@ -185,8 +194,6 @@ namespace logoblib
             if (this.tops.Count < 3) return false;
             Graph temp = new Graph();
 
-            // ---Сначала добавляем вершины
-
             for (int i = 0; i < this.ribs.Count; i++)
             {
                 temp.AddRib(this.ribs[i].StartTop.Name, this.ribs[i].EndTop.Name, this.ribs[i].ValuePrice);
@@ -208,8 +215,6 @@ namespace logoblib
                 else
                     key = temp.tops.Count;
             }
-
-            return temp.ribs.Count != 0;
         }
 
         private int dearchDegree(char top_name)
@@ -219,11 +224,10 @@ namespace logoblib
             for (int i = 0; i < this.ribs.Count; i++)
             {
                 if (this.ribs[i].StartTop.Name == top_name)
-                        result++;
+                    result++;
                 if (this.ribs[i].EndTop.Name == top_name)
                     result++;
             }
-
             return result;
         }
     }

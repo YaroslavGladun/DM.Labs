@@ -25,37 +25,17 @@ namespace logoblib
             this.valuePrice = valuePrice;
         }
 
-        //REWIEW
-        public static bool operator >(Rib rib1, Rib rib2)
-        {
-            return rib1.valuePrice > rib2.valuePrice;
-        }
-
-        public static bool operator <(Rib rib1, Rib rib2)
-        {
-            return rib1.valuePrice < rib2.valuePrice;
-        }
-
-        public static bool operator >=(Rib rib1, Rib rib2)
-        {
-            return rib1.valuePrice >= rib2.valuePrice;
-        }
-
-        public static bool operator <=(Rib rib1, Rib rib2)
-        {
-            return rib1.valuePrice <= rib2.valuePrice;
-        }
-
         public static bool operator !=(Rib rib1, Rib rib2)
         {
-            return rib1.valuePrice != rib2.valuePrice;
+            return !((rib1.startTop == rib2.startTop) && (rib1.endTop == rib2.endTop)) &&
+                !((rib1.startTop == rib2.endTop) && (rib1.endTop == rib2.startTop));
         }
 
         public static bool operator ==(Rib rib1, Rib rib2)
         {
-            return rib1.valuePrice == rib2.valuePrice;
+            return ((rib1.startTop == rib2.startTop) && (rib1.endTop == rib2.endTop)) ||
+                ((rib1.startTop == rib2.endTop) && (rib1.endTop == rib2.startTop));
         }
-        //__|
 
 
         public bool checkJointTops(Rib rib2)
