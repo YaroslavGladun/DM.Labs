@@ -22,60 +22,24 @@ namespace logoblib
 
         // PUBLIC:
 
-        public List<int> AlgorithmDijkstra(char name_start_top)
+        public void AlgorithmDijkstra(char name_start_top, List<int> way, Graph graph)
         {
-            Top a = tops[this.findTopInGraph(name_start_top)];
-            int a_index = this.findTopInGraph(name_start_top);
-
-            List<Top> U = new List<Top>();
-            List<int> d = new List<int>(this.tops.Count);
-            List<int> p = new List<int>(this.tops.Count);
-            for (int i = 0; i < d.Capacity; i++)
+            if (way.Count < this.ribs.Count)        
+                throw new Exception();
+            else if (way.Count == this.tops.Count)
             {
-                d.Add(0);
-                p.Add(0);
-            }
-
-            d[a_index] = 0;
-            p[a_index] = 0;
-
-            for (int i = 0; i < tops.Count; i++)
-            {
-                if (i != a_index)
-                    d[i] = int.MaxValue;
-            }
-
-            while (U.Count != tops.Count)
-            {
-                Top temp_top_v = tops[0];
-                int temp_top_v_d = d[0];
-                for (int i = 0; i < tops.Count; i++)
+                for (int i = 0; i < way.Count; i++)
                 {
-                    if (d[i] < d[temp_top_v_d] && U.FindIndex((x) => (x == tops[i])) == -1)
-                    {
-                        temp_top_v_d = d[i];
-                        temp_top_v = tops[i];
-                    }
+                    way[i] = int.MaxValue;
                 }
-                U.Add(temp_top_v);
+                way[this.findTopInGraph(name_start_top)] = 0;
 
-                Top temp_top_u = tops[0];
-                for (int i = 0; i < tops.Count; i++)
-                {
-                    if (U.FindIndex((x) => (x == tops[i])) == -1 &&
-                        ribs.FindIndex((x) => (x == new Rib(temp_top_v, tops[i]))) != -1)
-                    {
-                        if (d[findTopInGraph(tops[i].Name)] >
-                            d[temp_top_v_d] + ribs[findRibInGraph(tops[i].Name, temp_top_v.Name)].ValuePrice)
-                        {
-                            d[findTopInGraph(tops[i].Name)] =
-                                d[temp_top_v_d] + ribs[findRibInGraph(tops[i].Name, temp_top_v.Name)].ValuePrice;
-                            //p[findTopInGraph(tops[i].Name)]
-                        }
-                    }
-                }
             }
-            return d;
+
+            if (graph.tops.Count == 1)
+                return;
+
+            
         }
 
         public void AddTop(char name)
@@ -261,7 +225,7 @@ namespace logoblib
 
                 for (int i = 0; i < temp.tops.Count; i++)
                 {
-                    if (temp.dearchDegree(temp.tops[i].Name) < 2)
+                    if (temp.searchDegree(temp.tops[i].Name) < 2)
                         temp.DeleteTop(temp.tops[i].Name);
                 }
 
@@ -274,7 +238,7 @@ namespace logoblib
             }
         }
 
-        private int dearchDegree(char top_name)
+        private int searchDegree(char top_name)
         {
             int result = 0;
 
@@ -285,6 +249,21 @@ namespace logoblib
                 if (this.ribs[i].EndTop.Name == top_name)
                     result++;
             }
+            return result;
+        }
+
+        List<int> searchForNeighboringVertices(char top_name)
+        {
+            List<int> result = new List<int>();
+
+            for (int i = 0; i < this.ribs.Count; i++)
+            {
+                if (ribs[i].EndTop.Name == top_name)
+                    result.Add(this.findTopInGraph(ribs[i].StartTop.Name));
+                if (ribs[i].StartTop.Name == top_name)
+                    result.Add(this.findTopInGraph(ribs[i].EndTop.Name));
+            }
+
             return result;
         }
     }
