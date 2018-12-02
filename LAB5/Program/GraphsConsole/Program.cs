@@ -9,113 +9,109 @@ namespace GraphsConsole
 {
     class Program
     {
+        static void printList(List<int> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+                Console.WriteLine("[V0 - V{0}] = {1}", i, list[i]);
+
+        }
+
         static void Main(string[] args)
         {
-            //Graph graph = new Graph();
-            //graph.AddRib('A', 'B', 10);
-            //graph.AddRib('A', 'C', 15);
-            //graph.AddRib('B', 'B', 33);
-            //graph.AddRib('B', 'C', 1);
-            //graph.writeMatrix();
-            //graph.AlgorithmKruskal().writeMatrix();
-
-            bool key = true;
-            do
-            {
-                Console.WriteLine("0. Вихiд.");
-                Console.WriteLine("1. Приклад.");
-                Console.WriteLine("2. Запуск");
-                Console.Write("Оберiть пункт меню та натиснiть Enter: ");
-                switch (Console.ReadLine())
-                {
-                    case "0":
-                        Console.Clear();
-                        key = false;
-                        break;
-                    case "1":
-                        Console.Clear();
-                        ExempleProgram();
-                        break;
-                    case "2":
-                        Console.Clear();
-                        StartProgram();
-                        break;
-                    default:
-                        Console.Clear();
-                        Console.WriteLine("Ви вибрали не iснуючий пункт меню.");
-                        break;
-                }
-            } while (key);
-        }
-
-        static void ExempleProgram()
-        {
             Graph graph = new Graph();
 
-            graph.AddTop('1');
-            graph.AddTop('2');
-            graph.AddTop('3');
-            graph.AddTop('4');
-            graph.AddTop('5');
-            graph.AddTop('6');
-            graph.AddTop('7');
-            graph.AddTop('8');
-            graph.AddTop('9');
-            graph.AddTop('A');
-            graph.AddTop('B');
-            graph.AddRib('1', '2', 7);
-            graph.AddRib('1', '3', 3);
-            graph.AddRib('1', '4', 2);
-            graph.AddRib('2', '7', 1);
-            graph.AddRib('2', '5', 7);
-            graph.AddRib('3', '5', 7);
-            graph.AddRib('3', '6', 4);
-            graph.AddRib('4', '6', 5);
-            graph.AddRib('4', '7', 5);
-            graph.AddRib('5', '8', 2);
-            graph.AddRib('5', '9', 4);
-            graph.AddRib('6', '8', 4);
-            graph.AddRib('6', 'A', 2);
-            graph.AddRib('7', '9', 3);
-            graph.AddRib('8', 'B', 3);
-            graph.AddRib('9', 'B', 1);
-            graph.AddRib('A', 'B', 6);
+            graph.AddTop((char)(0 + 64));
+            graph.AddTop((char)(1 + 64));
+            graph.AddTop((char)(2 + 64));
+            graph.AddTop((char)(3 + 64));
+            graph.AddTop((char)(4 + 64));
+            graph.AddTop((char)(5 + 64));
+            graph.AddTop((char)(6 + 64));
+            graph.AddTop((char)(7 + 64));
+            graph.AddTop((char)(8 + 64));
+            graph.AddTop((char)(9 + 64));
+            graph.AddTop((char)(10 + 64));
+            graph.AddTop((char)(11 + 64));
+            graph.AddTop((char)(12 + 64));
+            graph.AddTop((char)(13 + 64));
+            graph.AddTop((char)(14 + 64));
+            graph.AddTop((char)(15 + 64));
+            graph.AddTop((char)(16 + 64));
+            graph.AddTop((char)(17 + 64));
+            graph.AddTop((char)(18 + 64));
+            graph.AddTop((char)(19 + 64));
+            graph.AddTop((char)(20 + 64));
+            graph.AddTop((char)(21 + 64));
+            graph.AddTop((char)(22 + 64));
+            graph.AddTop((char)(23 + 64));
+            graph.AddTop((char)(24 + 64));
+            graph.AddTop((char)(25 + 64));
+            graph.AddTop((char)(26 + 64));
+            graph.AddTop((char)(27 + 64));
+            graph.AddTop((char)(28 + 64));
+            graph.AddTop((char)(29 + 64));
 
-            graph.writeMatrix();
-            List<int> A = graph.AlgorithmDijkstra('2');
-            for (int i = 0; i < A.Count; i++)
-            {
-                Console.Write("{0}, ", A[i]);
-            }
+            graph.AddRib((char)(0 + 64), (char)(1 + 64), 7);
+            graph.AddRib((char)(1 + 64), (char)(2 + 64), 5);
+            graph.AddRib((char)(2 + 64), (char)(3 + 64), 3);
+            graph.AddRib((char)(3 + 64), (char)(4 + 64), 8);
+            graph.AddRib((char)(4 + 64), (char)(5 + 64), 5);
+
+            graph.AddRib((char)(6 + 64), (char)(7 + 64), 7);
+            graph.AddRib((char)(7 + 64), (char)(8 + 64), 3);
+            graph.AddRib((char)(8 + 64), (char)(9 + 64), 1);
+            graph.AddRib((char)(9 + 64), (char)(10 + 64), 2);
+            graph.AddRib((char)(10 + 64), (char)(11 + 64), 2);
+
+            graph.AddRib((char)(12 + 64), (char)(13 + 64), 3);
+            graph.AddRib((char)(13 + 64), (char)(14 + 64), 8);
+            graph.AddRib((char)(14 + 64), (char)(15 + 64), 8);
+            graph.AddRib((char)(15 + 64), (char)(16 + 64), 7);
+            graph.AddRib((char)(16 + 64), (char)(17 + 64), 7);
+
+            graph.AddRib((char)(18 + 64), (char)(19 + 64), 1);
+            graph.AddRib((char)(19 + 64), (char)(20 + 64), 3);
+            graph.AddRib((char)(20 + 64), (char)(21 + 64), 1);
+            graph.AddRib((char)(21 + 64), (char)(22 + 64), 1);
+            graph.AddRib((char)(22 + 64), (char)(23 + 64), 5);
+
+            graph.AddRib((char)(24 + 64), (char)(25 + 64), 3);
+            graph.AddRib((char)(25 + 64), (char)(26 + 64), 3);
+            graph.AddRib((char)(26 + 64), (char)(27 + 64), 4);
+            graph.AddRib((char)(27 + 64), (char)(28 + 64), 3);
+            graph.AddRib((char)(28 + 64), (char)(29 + 64), 1);
+
+            graph.AddRib((char)(0 + 64), (char)(0 + 6 + 64), 4);
+            graph.AddRib((char)(1 + 64), (char)(1 + 6 + 64), 3);
+            graph.AddRib((char)(2 + 64), (char)(2 + 6 + 64), 3);
+            graph.AddRib((char)(3 + 64), (char)(3 + 6 + 64), 4);
+            graph.AddRib((char)(4 + 64), (char)(4 + 6 + 64), 1);
+            graph.AddRib((char)(5 + 64), (char)(5 + 6 + 64), 1);
+
+            graph.AddRib((char)(6 + 64), (char)(6 + 6 + 64), 2);
+            graph.AddRib((char)(7 + 64), (char)(7 + 6 + 64), 1);
+            graph.AddRib((char)(8 + 64), (char)(8 + 6 + 64), 7);
+            graph.AddRib((char)(9 + 64), (char)(9 + 6 + 64), 4);
+            graph.AddRib((char)(10 + 64), (char)(10 + 6 + 64), 1);
+            graph.AddRib((char)(11 + 64), (char)(11 + 6 + 64), 7);
+
+            graph.AddRib((char)(12 + 64), (char)(12 + 6 + 64), 1);
+            graph.AddRib((char)(13 + 64), (char)(13 + 6 + 64), 5);
+            graph.AddRib((char)(14 + 64), (char)(14 + 6 + 64), 6);
+            graph.AddRib((char)(15 + 64), (char)(15 + 6 + 64), 6);
+            graph.AddRib((char)(16 + 64), (char)(16 + 6 + 64), 7);
+            graph.AddRib((char)(17 + 64), (char)(17 + 6 + 64), 7);
+
+            graph.AddRib((char)(18 + 64), (char)(18 + 6 + 64), 4);
+            graph.AddRib((char)(19 + 64), (char)(19 + 6 + 64), 2);
+            graph.AddRib((char)(20 + 64), (char)(20 + 6 + 64), 3);
+            graph.AddRib((char)(21 + 64), (char)(21 + 6 + 64), 8);
+            graph.AddRib((char)(22 + 64), (char)(22 + 6 + 64), 1);
+            graph.AddRib((char)(23 + 64), (char)(23 + 6 + 64), 2);
+
+            printList(graph.AlgorithmDijkstra((char)(0 + 64)));
         }
 
-        static void StartProgram()
-        {
-            Graph graph = new Graph();
-            int key;
-
-            do
-            {
-                Console.WriteLine("0. Знайти мінімальне дерево.");
-                Console.WriteLine("1. Додати вершину.");
-                Console.WriteLine("2. Додати ребро.");
-                Console.Write("Оберiть пункт меню та натиснiть Enter: ");
-                switch (Console.ReadLine())
-                {
-                    case "0":
-                        graph.AlgorithmKruskal();
-                        return;
-                    case "1":
-                        Console.Write("Введіть імя вершини (один символ.): ");
-                        graph.AddTop((char) Console.Read());
-                        break;
-                    case "2":
-                        break;
-                    default:
-                        Console.WriteLine("Ви вибрали не iснуючий пункт меню.");
-                        break;
-                }
-            } while (true);
-        }
+        
     }
 }

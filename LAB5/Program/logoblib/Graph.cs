@@ -12,6 +12,7 @@ namespace logoblib
         private List<Rib> ribs;
         private List<List<int>> matrix;
 
+
         // CONSTRUCTORS:
         public Graph()
         {
@@ -20,26 +21,54 @@ namespace logoblib
             matrix = new List<List<int>>();
         }
 
-        // PUBLIC:
-
-        public void AlgorithmDijkstra(char name_start_top, List<int> way, Graph graph)
+        public List<int> AlgorithmDijkstra(char top_name)
         {
-            if (way.Count < this.ribs.Count)        
-                throw new Exception();
-            else if (way.Count == this.tops.Count)
+            List<int> distance = new List<int>();
+            List<bool> visited = new List<bool>();
+            int top_index = findTopInGraph(top_name);
+            int tops_count = this.tops.Count;
+
+            for (int i = 0; i < tops_count; i++)
             {
-                for (int i = 0; i < way.Count; i++)
-                {
-                    way[i] = int.MaxValue;
-                }
-                way[this.findTopInGraph(name_start_top)] = 0;
-
+                distance.Add(int.MaxValue);
+                visited.Add(false);
             }
+            distance[top_index] = 0;
 
-            if (graph.tops.Count == 1)
-                return;
+            int min, k, a, temp;
 
-            
+            do
+            {
+                k = min = int.MaxValue;
+
+                for (int i = 0; i < tops_count; i++)
+                {
+                    if ((visited[i] == false) && (distance[i] < min))
+                    {
+                        min = distance[i];
+                        k = i;
+                    }
+                }
+
+                if (k != int.MaxValue)
+                {
+                    for (int i = 0; i < tops_count; i++)
+                    {
+
+                        if ((temp = (findRibInGraph(tops[k].Name, tops[i].Name) == -1) ? 0 : ribs[findRibInGraph(tops[k].Name, tops[i].Name)].ValuePrice) > 0)
+                        {
+                            a = min + temp;
+                            if (a < distance[i])
+                            {
+                                distance[i] = a;
+                            }
+                        }
+                    }
+                    visited[k] = true;
+                }
+            } while (k < int.MaxValue);
+
+            return distance;
         }
 
         public void AddTop(char name)
@@ -62,7 +91,6 @@ namespace logoblib
             }
         }
 
-        // REVIEW
         public void DeleteTop(char name)
         {
             int i = findTopInGraph(name), j;
@@ -144,42 +172,6 @@ namespace logoblib
                 Console.Write("--------");
             }
             Console.WriteLine('\n');
-        }
-
-        public Graph AlgorithmKruskal()
-        {
-            Graph resultGraph = new Graph();
-            List<Rib> sortRibs = new List<Rib>();
-
-            for (int i = 0; i < this.ribs.Count; i++)
-                sortRibs.Add(this.ribs[i]);
-            sortRibs.Sort((a, b) => a.ValuePrice.CompareTo(b.ValuePrice));
-
-            for (int i = 0; i < this.tops.Count; i++)
-                resultGraph.AddTop(this.tops[i].Name);
-
-            for (int i = 0; i < sortRibs.Count; i++)
-            {
-                resultGraph.AddRib(sortRibs[i].StartTop.Name, sortRibs[i].EndTop.Name,
-                    sortRibs[i].ValuePrice);
-
-                if (resultGraph.loopCheck())
-                {
-                    resultGraph.DeleteRig(sortRibs[i].StartTop.Name, sortRibs[i].EndTop.Name);
-                }
-                else
-                {
-                    // <DEBUG>
-                    Console.WriteLine("ADD ({0} {1})", sortRibs[i].StartTop.Name, sortRibs[i].EndTop.Name);
-                    resultGraph.writeMatrix();
-                    //<DEBUG/>
-                }
-
-            }
-
-
-
-            return resultGraph;
         }
 
         //PRIVATE:
