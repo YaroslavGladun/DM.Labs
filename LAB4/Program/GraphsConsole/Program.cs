@@ -36,7 +36,7 @@ namespace GraphsConsole
                         Console.Clear();
                         ExempleProgram();
                         break;
-                    case "2":
+                    case "2":   
                         Console.Clear();
                         StartProgram();
                         break;
@@ -63,23 +63,23 @@ namespace GraphsConsole
             graph.AddTop('9');
             graph.AddTop('A');
             graph.AddTop('B');
-            graph.AddRib('1', '2', 7);
-            graph.AddRib('1', '3', 3);
-            graph.AddRib('1', '4', 2);
-            graph.AddRib('2', '7', 1);
-            graph.AddRib('2', '5', 7);
+            graph.AddRib('1', '2', 1);
+            graph.AddRib('1', '3', 2);
+            graph.AddRib('1', '4', 4);
+            graph.AddRib('2', '7', 2);
+            graph.AddRib('2', '5', 3);
             graph.AddRib('3', '5', 7);
-            graph.AddRib('3', '6', 4);
-            graph.AddRib('4', '6', 5);
-            graph.AddRib('4', '7', 5);
-            graph.AddRib('5', '8', 2);
-            graph.AddRib('5', '9', 4);
-            graph.AddRib('6', '8', 4);
-            graph.AddRib('6', 'A', 2);
-            graph.AddRib('7', '9', 3);
-            graph.AddRib('8', 'B', 3);
+            graph.AddRib('3', '6', 5);
+            graph.AddRib('4', '6', 2);
+            graph.AddRib('4', '7', 3);
+            graph.AddRib('5', '8', 4);
+            graph.AddRib('5', '9', 6);
+            graph.AddRib('6', '8', 7);
+            graph.AddRib('6', 'A', 3);
+            graph.AddRib('7', '9', 5);
+            graph.AddRib('8', 'B', 4);
             graph.AddRib('9', 'B', 1);
-            graph.AddRib('A', 'B', 6);
+            graph.AddRib('A', 'B', 4);
 
             //graph.AddRib('1', '2', 1);
             //graph.AddRib('1', '3', 3);

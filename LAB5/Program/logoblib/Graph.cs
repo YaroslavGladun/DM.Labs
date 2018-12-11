@@ -55,7 +55,8 @@ namespace logoblib
                     for (int i = 0; i < tops_count; i++)
                     {
 
-                        if ((temp = (findRibInGraph(tops[k].Name, tops[i].Name) == -1) ? 0 : ribs[findRibInGraph(tops[k].Name, tops[i].Name)].ValuePrice) > 0)
+                        if ((temp = (findRibInGraph(tops[k].Name, tops[i].Name) == -1)
+                            ? 0 : ribs[findRibInGraph(tops[k].Name, tops[i].Name)].ValuePrice) > 0)
                         {
                             a = min + temp;
                             if (a < distance[i])
